@@ -19,6 +19,7 @@ public class BulletSpawner : MonoBehaviour
         normalBulletIndex = 0;
         specialBulletIndex = 1;
         damageModify = 2;
+        SpawnBullet();
     }
 
 

@@ -43,7 +43,7 @@ public class MeteorSpawner : MonoBehaviour
 
         //no bullet left in pool => Instantiate a bullet and put in pool
         meteor = SpawnMeteor();
-        meteor.GetComponent<DamageSender>().SendDamage(PlayerControllerISO.Instance._stats.GetDmg()); //set damage to bullet = player stats class
+        meteor.GetComponent<DamageSender>().SendDamage(EnemyBossController.Instance._EnemyRangeStats.GetDmg()); //set damage to bullet = player stats class
         meteor.transform.position = new Vector3(pos.x, pos.y + 20, pos.z);
     }
 }

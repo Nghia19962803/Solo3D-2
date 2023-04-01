@@ -24,6 +24,8 @@ public class EnemyRangerController : MonoBehaviour
 
     private float timeAtk = 0;
     public float timeDelay;
+
+    public GameObject bottle;
     private void Awake()
     {
         s_Instance = this;
@@ -100,8 +102,15 @@ public class EnemyRangerController : MonoBehaviour
     }
     IEnumerator StartToDeath()
     {
+        int numb = Random.Range(0, 4);
+
+
         collider.enabled = false;
         yield return new WaitForSeconds(3f);
+        if (numb == 2)
+        {
+            Instantiate(bottle, new Vector3(transform.position.x, 0.6f, transform.position.z), Quaternion.identity);
+        }
         animator.SetBool("Die", false);
         gameObject.SetActive(false);
     }

@@ -24,7 +24,7 @@ public class EnemyBullet : MonoBehaviour
     // after 1.5s deactive this bullet
     IEnumerator DeactiveByTime()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
         FXManager.Instance.BulletExp(transform);
 
         //quay ve lai pool
@@ -38,7 +38,7 @@ public class EnemyBullet : MonoBehaviour
     //this trigger for meteos when collision with ground. just make particle effect
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Ground") || other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Ground") || other.gameObject.name == "Player")
         {
             FXManager.Instance.BulletExp(transform);
             Destroy(gameObject);

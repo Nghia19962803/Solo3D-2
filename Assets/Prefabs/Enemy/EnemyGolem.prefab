@@ -1161,6 +1161,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   distanceToStop: 3
   timeDelay: 0
+  bottle: {fileID: 5384753806431566935, guid: 68608a0cc16cb264386e137a8f5415d7, type: 3}
 --- !u!114 &1064162532873693183
 MonoBehaviour:
   m_ObjectHideFlags: 0

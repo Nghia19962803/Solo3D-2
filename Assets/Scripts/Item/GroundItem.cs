@@ -16,7 +16,14 @@ public class GroundItem : MonoBehaviour
     {
         if (other.CompareTag("Player")) // only player can trigger
         {
-            Inventory.instance.AddItem(_itemObject);
+            if(this._itemObject.type != ItemType.Food)
+            {
+                Inventory.instance.AddItem(_itemObject);
+            }
+            else
+            {
+                PlayerControllerISO.Instance._stats.Regen(this._itemObject);
+            }
             Destroy(gameObject);
         }
     }

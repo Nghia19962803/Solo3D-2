@@ -14,7 +14,7 @@ public class MenuManager : MonoBehaviour
     private float timeCount;
     public static MenuManager Instance { get; private set; }
 
-
+    public int gameRound;
     private void Awake()
     {
         if (Instance != null)
@@ -33,7 +33,7 @@ public class MenuManager : MonoBehaviour
         {
             QuitGame();
         });
-
+        gameRound = 1;
     }
     public void StartNew()
     {

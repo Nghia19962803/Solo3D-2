@@ -72,4 +72,8 @@ public class PlayerStats : Stats
         currentHealth -= damage - (ArmorPoint / 10);
         _dmgReceiver.SetDmgReceive();
     }
+    public void SetHP(int hp)
+    {
+        currentHealth = hp;
+    }
 }

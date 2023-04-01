@@ -9,6 +9,10 @@ public class AttackController : MonoBehaviour
     private float norAtkDelay = 0.2f;   //set delay time between each shoot
     private float specialAtkDelay = 4f;   //set delay time between each shoot
     private float dashDelay = 2;
+
+    [SerializeField] private float attackRadius;
+    public LayerMask checkLayer;
+    private Transform target;
     private void Update()
     {
         norAtkDelay -= Time.deltaTime;
@@ -27,12 +31,31 @@ public class AttackController : MonoBehaviour
     //normal atk
     public void NormalAttack()
     {
+        FindTarget();
         // pretent spam
         if (norAtkDelay <= 0)
         {
+            if(target != null)
+            {
+                transform.LookAt(target.position);
+            }
             BulletSpawner.Instance.FireBullet(firePoint);
             PlayerControllerISO.Instance.AttackAction();
             norAtkDelay = 0.5f; //set time delay for each attack behavious
+        }
+    }
+    private void FindTarget()
+    {
+        if (Physics.CheckSphere(transform.position, attackRadius, checkLayer))
+        {
+            Collider[] colliders = Physics.OverlapSphere(transform.position, attackRadius, checkLayer);
+            if (colliders.Length > 0)
+            {
+                target = colliders[0].transform;
+                return;
+            }
+            else
+                target = null;
         }
     }
     //special atk
@@ -66,5 +89,10 @@ public class AttackController : MonoBehaviour
         PlayerControllerISO.Instance.SpeedModify(25);
         yield return new WaitForSeconds(0.2f);
         PlayerControllerISO.Instance.SpeedModify(5);
+    }
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(this.transform.position, attackRadius);
     }
 }

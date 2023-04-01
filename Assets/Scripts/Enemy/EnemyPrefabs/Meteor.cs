@@ -42,7 +42,7 @@ public class Meteor : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Ground"))
         {
-            FXManager.Instance.BulletExp(transform);
+            FXManager.Instance.Explose(transform);
             Destroy(gameObject);
         }
     }
