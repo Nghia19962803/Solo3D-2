@@ -11,7 +11,7 @@ public class HealthHolder : MonoBehaviour
     
     void Start()
     {
-        if(transform.gameObject.name == "Player")
+        if(transform.gameObject.tag == "Player")
         {
             health.maxValue = playerStats.GetCurrentHealh();
             return;
@@ -24,7 +24,7 @@ public class HealthHolder : MonoBehaviour
     {
         health.transform.rotation = Quaternion.Euler(30, 30, 0);
 
-        if (transform.gameObject.name == "Player")
+        if (transform.gameObject.tag == "Player")
         {
             health.value = playerStats.GetCurrentHealh();
             return;

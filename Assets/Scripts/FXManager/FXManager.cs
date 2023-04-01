@@ -8,6 +8,7 @@ public class FXManager : MonoBehaviour
     public static FXManager Instance { get { return _instance; } }
 
     public ParticleSystem explosionFX;
+    public ParticleSystem largeExplosionFX;
     public ParticleSystem hitFX;
     public ParticleSystem bulletExplosive;
     private void Awake()
@@ -29,5 +30,10 @@ public class FXManager : MonoBehaviour
         if (bulletExplosive == null) return;
 
         Instantiate(bulletExplosive, trans.position, Quaternion.identity);
+    }
+    public void LargeExplose(Transform trans)
+    {
+        Vector3 pos = new Vector3(trans.position.x, 0.01f, trans.position.z);
+        Instantiate(largeExplosionFX, pos, Quaternion.identity);
     }
 }

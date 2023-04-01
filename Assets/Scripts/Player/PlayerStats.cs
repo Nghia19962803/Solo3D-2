@@ -17,7 +17,7 @@ public class PlayerStats : Stats
     {
         DamagePoint = baseDmg;
         ArmorPoint = baseArmor;
-        currentHealth = 70;
+        currentHealth = baseHealth;
         _dmgReceiver = GetComponent<DamageReceiver>();
     }
     public void SetDamagePoint(ItemObject _item)
@@ -30,7 +30,6 @@ public class PlayerStats : Stats
     }
     public void Regen(ItemObject _item) // call when use bottle item
     {
-        Debug.Log(_item.Name);
         currentHealth = currentHealth + _item.buff.value;
         if(currentHealth > baseHealth)
         {

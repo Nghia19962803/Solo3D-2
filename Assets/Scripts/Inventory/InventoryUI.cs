@@ -6,12 +6,15 @@ using UnityEngine.UI;
 public class InventoryUI : MonoBehaviour
 {
     [SerializeField] private GameObject InventoryPanel;
-    [SerializeField] private GameObject displayPanel;
-    [SerializeField] private GameObject doll;   // just decorate inventory
+    //[SerializeField] private GameObject displayPanel;
+    //[SerializeField] private GameObject doll;   // just decorate inventory
+    [SerializeField] private Transform inventoryTransform;
     private List<Transform> slotUI = new List<Transform> ();
 
-    private void Start()
+    private void Awake()
     {
+        inventoryTransform = GameObject.Find("InventoryHolder").GetComponent<Transform>();
+
         int maxSlot = 10;
         for (int i = 0; i < maxSlot; i++)
         {
@@ -19,8 +22,13 @@ public class InventoryUI : MonoBehaviour
 
             RegisterSlotHandle(i);
         }
-        displayPanel.SetActive(false);
-        doll.SetActive(false);
+        //displayPanel.SetActive(false);
+        //doll.SetActive(false);
+
+    }
+    private void Start()
+    {
+        HideInventory();
     }
 
     public void DisPlayItem(List<InventorySlot> invenSlot)
@@ -35,8 +43,6 @@ public class InventoryUI : MonoBehaviour
             }
             else
                 slotUI[i].GetChild(1).GetComponent<Text>().text = " ";
-
-
         }
     }
     public void RegisterSlotHandle(int index)
@@ -59,15 +65,25 @@ public class InventoryUI : MonoBehaviour
     //attach methor to inventory show button
     public void DisplayInventory()
     {
-        doll.SetActive(true);
-        displayPanel.SetActive(true);
+        //doll.SetActive(true);
+        //displayPanel.SetActive(true);
+        if(PlayerControllerISO.Instance == null) return;
+
+        PlayerControllerISO.Instance._PlayerInput.isPlayerControllerInputBlocked = true;
+        inventoryTransform.gameObject.SetActive(true);
+        inventoryTransform.position = PlayerControllerISO.Instance.GetPlayerPosition();
     }
 
     //attach methor to inventory hide button
     public void HideInventory()
     {
-        doll.SetActive(false);
-        displayPanel.SetActive(false);
-        ItemManager.Instance._ItemDetail.HideDetailPanel();
+        if (PlayerControllerISO.Instance == null) return;
+
+        PlayerControllerISO.Instance._PlayerInput.isPlayerControllerInputBlocked = false;
+        inventoryTransform.gameObject.SetActive(false);
+        //doll.SetActive(false);
+        //displayPanel.SetActive(false);
+        //ItemManager.Instance._ItemDetail.HideDetailPanel();
+
     }
 }

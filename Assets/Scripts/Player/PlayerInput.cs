@@ -54,7 +54,7 @@ public class PlayerInput : MonoBehaviour
         // set nút tất công đặc biệt
         specAttack.onClick.AddListener(() =>
         {
-            CheckSpecialAtk();
+            CheckTower();
         });
         // set nút dash skill
         Dash.onClick.AddListener(() =>
@@ -76,11 +76,18 @@ public class PlayerInput : MonoBehaviour
             m_AttackController.NormalAttack();
         }
     }
-    private void CheckSpecialAtk()
+    //private void CheckSpecialAtk()
+    //{
+    //    if (IsAttack)
+    //    {
+    //        m_AttackController.SpecialAttack();
+    //    }
+    //}
+    private void CheckTower()
     {
         if (IsAttack)
         {
-            m_AttackController.SpecialAttack();
+            m_AttackController.PlaceTower();
         }
     }
     private void DashSkill()

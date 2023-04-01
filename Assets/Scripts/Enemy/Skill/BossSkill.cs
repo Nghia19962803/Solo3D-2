@@ -8,41 +8,56 @@ public class BossSkill : MonoBehaviour
     public static BossSkill Instance { get { return _instance; } }
 
     public List<Transform> bullets;
-    public List<Transform> Golems;
+    //public List<Transform> Golems;
 
+    public GameObject enemyBullet;
     // load all child object when reset
-    private void Reset()
-    {
-        LoadBullets();
-        LoadGolems();
-    }
+
     #region Load object child from this object and put it in list<>
     public void LoadBullets()
     {
-        Transform parent = transform.Find("EnemyBullets");
-        foreach (Transform child in parent)
+        //if (bullets.Count > 5)
+        //{
+        //    return;
+        //}
+        for (int i = 0; i < 5; i++)
         {
-            bullets.Add(child);
+            GameObject goj = Instantiate(enemyBullet);
+            Transform parent = transform.Find("EnemyBullets");
+            goj.transform.SetParent(parent);
+            bullets.Add(goj.transform);
         }
+
+        //Transform parent = transform.Find("EnemyBullets");
+        //foreach (Transform child in parent)
+        //{
+        //    bullets.Add(child);
+        //}
     }
-    public void LoadGolems()
-    {
-        Transform parent = transform.Find("GolemSpawner");
-        foreach (Transform child in parent)
-        {
-            Golems.Add(child);
-        }
-    }
+    //public void LoadGolems()
+    //{
+    //    Transform parent = transform.Find("GolemSpawner");
+    //    foreach (Transform child in parent)
+    //    {
+    //        Golems.Add(child);
+    //    }
+    //}
     #endregion
 
     private void Awake()
     {
         _instance = this;
     }
-
+    private void Start()
+    {
+        LoadBullets();
+    }
     //set damage for bullet before perform skill
     public void SetDmgForObject(int dmg)
     {
+
+        //LoadBullets();
+
         foreach (Transform t in bullets)
         {
             //t.gameObject.SetActive(true);
@@ -53,7 +68,21 @@ public class BossSkill : MonoBehaviour
     // quyền ảnh tung hoành tạo ra 5 quyền phong bay 5 hướng
     public void GreaterMultibleProjectiles(Transform _transform)
     {
-        for (int i = 0; i < bullets.Count; i++)
+        //if(bullets.Count < 5)
+        //{
+        //    for (int i = 0; i < 5; i++)
+        //    {
+        //        GameObject goj = Instantiate(enemyBullet);
+        //        Transform parent = transform.Find("EnemyBullets");
+        //        goj.transform.SetParent(parent);
+        //    }
+        //}
+        //skill nay chi can 5 bullet nen dieu kien i<5
+        //if(bullets.Count < 5)
+        //{
+        //    LoadBullets();
+        //}
+        for (int i = 0; i < 5; i++)
         {
             bullets[i].gameObject.SetActive(true);
             float angleOffset = Mathf.Atan2(_transform.right.z, _transform.right.x) * Mathf.Rad2Deg;
@@ -63,10 +92,13 @@ public class BossSkill : MonoBehaviour
 
             //set rotation for each bullet
             bullets[i].rotation = Quaternion.Euler(0f, (45 - (22.5f * i)) - angleOffset, 0f);
+            bullets.RemoveAt(i);
         }
     }
     #endregion
+    //============================================================================================
 
+    //============================================================================================
     #region skill "Địa bộc thiên tinh"
     // gọi thiên thạch từ trên trời xuống
     public void Meteor(Transform _transform)
@@ -91,20 +123,19 @@ public class BossSkill : MonoBehaviour
         }
     }
     #endregion
-
-    #region Skill "Uế Thổ Chuyển Sinh"
-    // gọi các con đệ đã chết hồi sinh
-    public void EdoTensei()
-    {
-        foreach (Transform golem in Golems)
-        {
-            if (golem.gameObject.activeSelf)
-                return;
-        }
-        foreach (Transform golem in Golems)
-        {
-            golem.gameObject.SetActive(true);
-        }
-    }
-    #endregion
+    //#region Skill "Uế Thổ Chuyển Sinh"
+    //// gọi các con đệ đã chết hồi sinh
+    //public void EdoTensei()
+    //{
+    //    foreach (Transform golem in Golems)
+    //    {
+    //        if (golem.gameObject.activeSelf)
+    //            return;
+    //    }
+    //    foreach (Transform golem in Golems)
+    //    {
+    //        golem.gameObject.SetActive(true);
+    //    }
+    //}
+    //#endregion
 }

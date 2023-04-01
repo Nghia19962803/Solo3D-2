@@ -11,6 +11,7 @@ public class DamageSender : MonoBehaviour
     // this method set damage to your bullet or punch
     public int SendDamage(int dmg)
     {
+        //Debug.Log(dmg);
         damage = dmg;
         return damage;
     }

@@ -15,12 +15,15 @@ public class GameManager : MonoBehaviour
     private float timeCount = 0;
     public Button backBtn;
     public Transform endGamePanel;
+
+    public int numberEnemySpawn;
     public bool startGame { get;set; }
     private void Awake()
     {
-        startGame = false;
         instance = this;
+        startGame = true;
         endGamePanel.gameObject.SetActive(false);
+        numberEnemySpawn = 0;
         backBtn.onClick.AddListener(() =>
         {
             BackToMenu();
@@ -29,7 +32,7 @@ public class GameManager : MonoBehaviour
     private void FixedUpdate()
     {
         if (!startGame) return;
-        CountTime();
+        //CountTime();
     }
     public bool StartGame()
     {
@@ -39,20 +42,20 @@ public class GameManager : MonoBehaviour
     {
         startGame = false ;
     }
-    public void CountTime()
-    {
-        float minutes = timeCount/60;
-        float seconds = timeCount%60;
-        timeCount += Time.fixedDeltaTime;
-        timeText.text = string.Format("{0:00}:{1:00}",minutes,seconds);
-    }
+    //public void CountTime()
+    //{
+    //    float minutes = timeCount/60;
+    //    float seconds = timeCount%60;
+    //    timeCount += Time.fixedDeltaTime;
+    //    timeText.text = string.Format("{0:00}:{1:00}",minutes,seconds);
+    //}
     public void EndGame()
     {
-        MenuManager menu = FindObjectOfType<MenuManager>().GetComponent<MenuManager>();
-        if (menu.GetTimeCount() > this.timeCount)
-        {
-            SaveTime();
-        }
+        //MenuManager menu = FindObjectOfType<MenuManager>().GetComponent<MenuManager>();
+        //if (menu.GetTimeCount() > this.timeCount)
+        //{
+        //    SaveTime();
+        //}
         startGame = false;
         
         StartCoroutine(DisplayEndGamePanel());
@@ -68,7 +71,7 @@ public class GameManager : MonoBehaviour
     }
     public void BackToMenu()
     {
-        SceneManager.LoadScene(0);
+        MenuManager.Instance.StartNew();
     }
     IEnumerator DisplayEndGamePanel()
     {
@@ -77,6 +80,10 @@ public class GameManager : MonoBehaviour
         float minutes = timeCount / 60;
         float seconds = timeCount % 60;
         hightScore.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+    }
+    public void ReloadScene()
+    {
+        SceneManager.LoadScene(1);
     }
 }
 [System.Serializable]

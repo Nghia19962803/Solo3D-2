@@ -8,7 +8,11 @@ public class EnemyBullet : MonoBehaviour
 {
     [SerializeField] private float speed = 15;
 
-    void OnEnable()
+    //void Start()
+    //{
+    //    StartCoroutine(DeactiveByTime());
+    //}
+    private void OnEnable()
     {
         StartCoroutine(DeactiveByTime());
     }
@@ -20,17 +24,24 @@ public class EnemyBullet : MonoBehaviour
     // after 1.5s deactive this bullet
     IEnumerator DeactiveByTime()
     {
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1f);
         FXManager.Instance.BulletExp(transform);
-        gameObject.SetActive(false);
+
+        //quay ve lai pool
+        //BossSkill.Instance.bullets.Add(this.transform);
+        //gameObject.SetActive(false);
+        //tu dong an
+
+        Destroy(gameObject);
     }
 
     //this trigger for meteos when collision with ground. just make particle effect
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Ground"))
+        if (other.gameObject.CompareTag("Ground") || other.gameObject.CompareTag("Player"))
         {
-            FXManager.Instance.Explose(transform);
+            FXManager.Instance.BulletExp(transform);
+            Destroy(gameObject);
         }
     }
 }

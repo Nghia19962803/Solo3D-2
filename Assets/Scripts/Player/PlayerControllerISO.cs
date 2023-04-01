@@ -77,5 +77,9 @@ public class PlayerControllerISO : MonoBehaviour
     {
         _speed = f;
     }
+    public Vector3 GetPlayerPosition()
+    {
+        return transform.position;  
+    }
 }
 

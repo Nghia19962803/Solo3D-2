@@ -32,20 +32,23 @@ public class AttackController : MonoBehaviour
         {
             BulletSpawner.Instance.FireBullet(firePoint);
             PlayerControllerISO.Instance.AttackAction();
-            norAtkDelay = 0.2f;
+            norAtkDelay = 0.5f; //set time delay for each attack behavious
         }
     }
     //special atk
     public void SpecialAttack()
     {
-        // pretent spam
-        if (specialAtkDelay <= 0)
-        {
-            BulletSpawner.Instance.FireSpecBullet(firePoint);
-            PlayerControllerISO.Instance.AttackAction();
-            specialAtkDelay = 4;
-        }
-
+        //// pretent spam
+        //if (specialAtkDelay <= 0)
+        //{
+        //    BulletSpawner.Instance.FireSpecBullet(firePoint);
+        //    PlayerControllerISO.Instance.AttackAction();
+        //    specialAtkDelay = 4;
+        //}
+    }
+    public void PlaceTower()
+    {
+        TowerSpawner.Instance.SpawnTower(firePoint);
     }
     public void DashAction()
     {

@@ -28,6 +28,7 @@ public class EnemyBossController : EnemyController
         Attack();
         Death();
         BossDie();
+        if (movePoint == null) return;
         transform.LookAt(movePoint);
     }
     // 1. check raycast to player
@@ -69,12 +70,13 @@ public class EnemyBossController : EnemyController
     public override void Attack()
     {
 
-        if (!isWalk && !isDeath && FaceToPlayer())
+        //if (!isWalk && !isDeath && FaceToPlayer())
+        if (!isWalk && !isDeath )
         {
             animator.SetBool("Attack", true);
             isAttack = true;
             //StopCoroutine(PreventMove());
-            StartCoroutine(PreventMove());  //hàm làm cho enemy đứng yên khi thực hiện animation attack
+            //StartCoroutine(PreventMove());  //hàm làm cho enemy đứng yên khi thực hiện animation attack
             return;
         }
         animator.SetBool("Attack", false);
@@ -82,6 +84,7 @@ public class EnemyBossController : EnemyController
     }
     public void BossDie()
     {
+        if (GameManager.instance == null) return;
         if(isDeath)
             GameManager.instance.EndGame();
     }

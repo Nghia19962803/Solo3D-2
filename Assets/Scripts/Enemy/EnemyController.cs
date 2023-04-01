@@ -19,24 +19,24 @@ public class EnemyController : MonoBehaviour
     protected Animator animator;
     protected Collider collider;
 
-    protected float distanceToStop;
+    [SerializeField] protected float distanceToStop;
     protected bool isWalk;
     protected bool isAttack;
     protected bool isDeath;
 
+    private float timeAtk = 0;
+    public float timeDelay;
     private void Awake()
     {
         s_Instance = this;
         m_EnemyRangeStats = GetComponent<EnemyStats>();
         enemyBossAttack = GetComponent<EnemyBossAttack>();
         movePoint = FindObjectOfType<PlayerControllerISO>().transform;
-
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
         collider = GetComponent<Collider>();
 
         agent.stoppingDistance = distanceToStop;
-        distanceToStop = 2;
         isDeath = false;
     }
 
@@ -74,10 +74,14 @@ public class EnemyController : MonoBehaviour
     {
         if(Vector3.Distance(transform.position, movePoint.position) <= distanceToStop && !isWalk && !isDeath)
         {
-            animator.SetBool("Attack", true);
-            isAttack = true;
-            StartCoroutine(PreventMove());  //pretend enemy move 1.5s when attack is action
-            return;
+            if(timeAtk <= 0)
+            {
+                animator.SetBool("Attack", true);
+                isAttack = true;
+                StartCoroutine(PreventMove());  //pretend enemy move 1.5s when attack is action
+                timeAtk = timeDelay;
+                return;
+            }
         }
         animator.SetBool("Attack",false);
         isAttack = false;
