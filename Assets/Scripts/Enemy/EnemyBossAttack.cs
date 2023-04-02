@@ -7,12 +7,6 @@ public class EnemyBossAttack : MonoBehaviour
     private int[] skillNumber = { 0, 1, 2, 3, 4, 5 };
     private int attackNumber = 6;
 
-    public bool check;
-    public void CallOnlyStartGame()
-    {
-        //InvokeRepeating("CallMeteor", 20, 20);
-        //InvokeRepeating("CallEdoTensei", 30, 10);
-    }
     public void ActionWhenAnimationATK()
     {
         if (attackNumber == 6)
@@ -20,7 +14,7 @@ public class EnemyBossAttack : MonoBehaviour
             attackNumber = 0;
             RandomSkill();
         }
-        //chu kỳ sau 6 lần tấn công thì random skill 1 lần
+        //make boss random skill to attack
         switch (skillNumber[attackNumber])
         {
             case 0:
@@ -38,53 +32,48 @@ public class EnemyBossAttack : MonoBehaviour
         }
         attackNumber++;
     }
-    public void CallGreaterMultibleProjectiles()
+    //fire 5 bullets
+    public void CallGreaterMultibleProjectiles()                                                        //fire 5 bullets with difference direction
     {
-        BossSkill.Instance.LoadBullets();
-        BossSkill.Instance.SetDmgForObject(EnemyBossController.Instance._EnemyRangeStats.GetDmg());      
-        BossSkill.Instance.GreaterMultibleProjectiles(this.transform);
-        SoundManager.Instance.MeleePunchSound();
+        BossSkill.Instance.LoadBullets();                                                               // make 5 bullets and add them to pool
+        BossSkill.Instance.SetDmgForObject(EnemyBossController.Instance._EnemyRangeStats.GetDmg());     //set dmg for each bullet   
+        BossSkill.Instance.GreaterMultibleProjectiles(this.transform);                                  // call bossKill class active skill
+        SoundManager.Instance.MeleePunchSound();                                                        //sound
     }
+    //call a meteor fall in the sky
     public void CallMeteor()
     {
-        //BossSkill.Instance.SetDmgForObject(EnemyBossController.Instance._EnemyRangeStats.GetDmg());
-        //BossSkill.Instance.Meteor(EnemyBossController.Instance.GetPlayerPosition());    // nhận ra vị trí player
         SoundManager.Instance.CastMeteorSound();
         MeteorSpawner.Instance.CallMeteor(PlayerControllerISO.Instance.GetPlayerPosition());
     }
-    //public void CallEdoTensei()
-    //{
-    //    BossSkill.Instance.EdoTensei();
-    //}
-    #region hỗ trợ thực hiện skill Leap Slam
+    #region skill leap slam is active in here
     public void LeapSlam()
     {
         StartCoroutine(FastMove());
     }
     IEnumerator FastMove()
     {
-        float countTime = 0.5f;
-        Vector3 playerPos = PlayerControllerISO.Instance.GetPlayerPosition();
         SoundManager.Instance.DashSound();
         FXManager.Instance.Dash(transform);
-        while (Vector3.Distance(playerPos, transform.position) > 2 || countTime > 0)
+
+        float countTime = 0.5f;
+        Vector3 playerPos = PlayerControllerISO.Instance.GetPlayerPosition();
+        while (Vector3.Distance(playerPos, transform.position) > 2 || countTime > 0)            //2 condition to enemy stop move when active skill
         {
             transform.position = Vector3.Lerp(transform.position, playerPos, 3 * Time.deltaTime);
             countTime = countTime - Time.deltaTime;
             yield return null;
         }
+        //play sound and fx when reach to player
         FXManager.Instance.LargeExplose(transform);
         SoundManager.Instance.LargeExploseSound();
         yield return null;
     }
     #endregion
 
+    // this menthod make boss spam random skill
     public void RandomSkill()
     {
-        //a,b,tg
-        //tg = a
-        //a = b
-        //b = tg
         int stg;
         for (int i = 0; i < 6; i++)
         {

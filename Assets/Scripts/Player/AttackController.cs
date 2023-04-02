@@ -62,11 +62,6 @@ public class AttackController : MonoBehaviour
     //special atk
     public void SpecialAttack()
     {
-        //// pretent spam
-        //if (specialAtkDelay <= 0)
-        //{
-
-        //}
     }
     public void PlaceTower()
     {

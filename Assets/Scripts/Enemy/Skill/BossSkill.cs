@@ -8,41 +8,7 @@ public class BossSkill : MonoBehaviour
     public static BossSkill Instance { get { return _instance; } }
 
     public List<Transform> bullets;
-    //public List<Transform> Golems;
-
-    public GameObject enemyBullet;
-    // load all child object when reset
-
-    #region Load object child from this object and put it in list<>
-    public void LoadBullets()
-    {
-        //if (bullets.Count > 5)
-        //{
-        //    return;
-        //}
-        for (int i = 0; i < 5; i++)
-        {
-            GameObject goj = Instantiate(enemyBullet);
-            Transform parent = transform.Find("EnemyBullets");
-            goj.transform.SetParent(parent);
-            bullets.Add(goj.transform);
-        }
-
-        //Transform parent = transform.Find("EnemyBullets");
-        //foreach (Transform child in parent)
-        //{
-        //    bullets.Add(child);
-        //}
-    }
-    //public void LoadGolems()
-    //{
-    //    Transform parent = transform.Find("GolemSpawner");
-    //    foreach (Transform child in parent)
-    //    {
-    //        Golems.Add(child);
-    //    }
-    //}
-    #endregion
+    [SerializeField]private GameObject enemyBullet;
 
     private void Awake()
     {
@@ -52,15 +18,21 @@ public class BossSkill : MonoBehaviour
     {
         LoadBullets();
     }
+    public void LoadBullets()
+    {
+        for (int i = 0; i < 5; i++)
+        {
+            GameObject goj = Instantiate(enemyBullet);
+            Transform parent = transform.Find("EnemyBullets");
+            goj.transform.SetParent(parent);
+            bullets.Add(goj.transform);
+        }
+    }
     //set damage for bullet before perform skill
     public void SetDmgForObject(int dmg)
     {
-
-        //LoadBullets();
-
         foreach (Transform t in bullets)
         {
-            //t.gameObject.SetActive(true);
             t.GetComponent<DamageSender>().SendDamage(dmg);
         }
     }
@@ -68,20 +40,6 @@ public class BossSkill : MonoBehaviour
     // quyền ảnh tung hoành tạo ra 5 quyền phong bay 5 hướng
     public void GreaterMultibleProjectiles(Transform _transform)
     {
-        //if(bullets.Count < 5)
-        //{
-        //    for (int i = 0; i < 5; i++)
-        //    {
-        //        GameObject goj = Instantiate(enemyBullet);
-        //        Transform parent = transform.Find("EnemyBullets");
-        //        goj.transform.SetParent(parent);
-        //    }
-        //}
-        //skill nay chi can 5 bullet nen dieu kien i<5
-        //if(bullets.Count < 5)
-        //{
-        //    LoadBullets();
-        //}
         for (int i = 0; i < 5; i++)
         {
             bullets[i].gameObject.SetActive(true);

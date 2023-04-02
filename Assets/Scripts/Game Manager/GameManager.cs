@@ -20,7 +20,6 @@ public class GameManager : MonoBehaviour
     public int currentPlayerHP;
     public GameObject weapon;
     public GameObject armor;
-    //public int gameRound;
     private void Awake()
     {
         // sau khi reload lại main scene thì sẻ tạo thêm 1 game manager
@@ -33,13 +32,6 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         instance = this;
         startGame = true;
-
-
-        //backBtn.onClick.AddListener(() =>
-        //{
-        //    BackToMenu();
-        //});
-
     }
     private void Start()
     {
@@ -68,10 +60,6 @@ public class GameManager : MonoBehaviour
         {
             TriggerMap.instance.AppearTrigger();
         }
-        //if(gameRound > 0)
-        //{
-        //    TriggerEnemy.instance.AppearTrigger();
-        //}
     }
     public bool StartGame()
     {
@@ -80,30 +68,16 @@ public class GameManager : MonoBehaviour
     public void StopGame()
     {
         startGame = false ;
-        Debug.Log("Stop game");
+        //Debug.Log("Stop game");
         StartCoroutine(BackToMenu());
         WinLoseManager.instance.ApearEndGamePanel("lose");
-        //StartCoroutine(DisplayEndGamePanel());
     }
-    //public void CountTime()
-    //{
-    //    float minutes = timeCount/60;
-    //    float seconds = timeCount%60;
-    //    timeCount += Time.fixedDeltaTime;
-    //    timeText.text = string.Format("{0:00}:{1:00}",minutes,seconds);
-    //}
     public void EndGame()
     {
-        //MenuManager menu = FindObjectOfType<MenuManager>().GetComponent<MenuManager>();
-        //if (menu.GetTimeCount() > this.timeCount)
-        //{
-        //    SaveTime();
-        //}
         startGame = false;
-        Debug.Log("End game and WIN");
+        //Debug.Log("End game and WIN");
         StartCoroutine(BackToMenu());
         WinLoseManager.instance.ApearEndGamePanel("win");
-        //StartCoroutine(DisplayEndGamePanel());
     }
     public void SaveTime()
     {
@@ -140,6 +114,7 @@ public class GameManager : MonoBehaviour
         if (gameRound == 4)
         {
             EnemySpawner.Instance.SpawnBoss();
+
         }
         yield return new WaitForSeconds(1);
         openMap = true;

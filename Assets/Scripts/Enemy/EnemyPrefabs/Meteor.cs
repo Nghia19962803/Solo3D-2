@@ -35,10 +35,10 @@ public class Meteor : MonoBehaviour
     }
     public void ReturnToPool()
     {
-        MeteorSpawner.Instance.pool.Add(this.transform);    // chinh lai thanh MeteorSpawner
+        MeteorSpawner.Instance.pool.Add(this.transform);    // add meteor to pool
         gameObject.SetActive(false);
     }
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other) //if collider with ground > explose fx and sound
     {
         if (other.gameObject.CompareTag("Ground"))
         {

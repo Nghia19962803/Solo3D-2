@@ -32,6 +32,7 @@ public class EnemySpawner : MonoBehaviour
     }
     public void SpawnBoss()
     {
-        Instantiate(bossPrefabs, bossPrefabs.transform.position, Quaternion.identity);
+        GameObject goj = Instantiate(bossPrefabs, bossPrefabs.transform.position, Quaternion.identity);
+        FXManager.Instance.EnemyPopup(goj.transform.position);
     }
 }

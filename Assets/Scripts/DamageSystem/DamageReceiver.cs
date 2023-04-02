@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class DamageReceiver : MonoBehaviour
 {
-    // đầu tiên là class con stats sẻ truyền giá trị hp của nó vào đay
-    //sau đó class con stats sẻ liên tục đọc giá trị current hp của class này để cập nhật tình trạng cho stats
+
     private int dmgReceive;
     [SerializeField] private GameObject dmgTextDisplay; // text will appear when take damage
     public void ReceiveDamage(int dmg)  // method is called by only damage sender class

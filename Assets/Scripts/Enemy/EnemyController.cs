@@ -26,7 +26,7 @@ public class EnemyController : MonoBehaviour
     protected bool isDeathCheck;
 
     private float timeAtk = 0;
-    public float timeDelay;
+    private float timeDelay;
 
     public GameObject bottle;
     private void Awake()

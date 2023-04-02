@@ -6,11 +6,11 @@ public class MeteorSpawner : MonoBehaviour
 {
     public static MeteorSpawner Instance { get { return s_Instance; } }
     private static MeteorSpawner s_Instance;
-    [SerializeField] private GameObject meteorPrefab;
+
+    [SerializeField] private GameObject meteorPrefab;   //put meteor prefab in here
+
     [Header("Meteor Holder")]
     public List<Transform> pool;
-
-    public bool check;
     private void Awake()
     {
         s_Instance = this;

@@ -7,11 +7,6 @@ using UnityEngine;
 public class EnemyBullet : MonoBehaviour
 {
     [SerializeField] private float speed = 15;
-
-    //void Start()
-    //{
-    //    StartCoroutine(DeactiveByTime());
-    //}
     private void OnEnable()
     {
         StartCoroutine(DeactiveByTime());
@@ -21,17 +16,11 @@ public class EnemyBullet : MonoBehaviour
         transform.Translate(Vector3.forward * speed * Time.deltaTime);
     }
 
-    // after 1.5s deactive this bullet
+    // after s deactive this bullet
     IEnumerator DeactiveByTime()
     {
         yield return new WaitForSeconds(2f);
         FXManager.Instance.BulletExp(transform);
-
-        //quay ve lai pool
-        //BossSkill.Instance.bullets.Add(this.transform);
-        //gameObject.SetActive(false);
-        //tu dong an
-
         Destroy(gameObject);
     }
 

@@ -32,9 +32,6 @@ public class WinLoseManager : MonoBehaviour
         yield return new WaitForSeconds(3);
         endGamePanel.gameObject.SetActive(true);
         gameStatusText.text = status;   
-        //    float minutes = timeCount / 60;
-        //    float seconds = timeCount % 60;
-        //    hightScore.text = string.Format("{0:00}:{1:00}", minutes, seconds);
     }
     public void BackToMenu()    // hàm này gắn vào nút Menu
     {

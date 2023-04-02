@@ -5,17 +5,16 @@ using UnityEngine.AI;
 
 public class EnemyBossController : EnemyController
 {
-
     private void Start()
     {
-        isDeath = false;
         m_EnemyRangeStats = GetComponent<EnemyStats>();
-        distanceToStop = 2;
         agent = GetComponent<NavMeshAgent>();
-        agent.stoppingDistance = distanceToStop;
         movePoint = FindObjectOfType<PlayerControllerISO>().transform;
         animator = GetComponent<Animator>();
 
+        isDeath = false;
+        distanceToStop = 2;
+        agent.stoppingDistance = distanceToStop;
     }
     private void FixedUpdate()
     {
@@ -28,7 +27,7 @@ public class EnemyBossController : EnemyController
         Attack();
         Death();
         BossDie();
-        if (movePoint == null) return;
+        if (movePoint == null) return;  // if no player in scene > return. to pretent erro while game playing
         transform.LookAt(movePoint);
     }
     // 1. check raycast to player
@@ -70,13 +69,10 @@ public class EnemyBossController : EnemyController
     public override void Attack()
     {
 
-        //if (!isWalk && !isDeath && FaceToPlayer())
         if (!isWalk && !isDeath )
         {
             animator.SetBool("Attack", true);
             isAttack = true;
-            //StopCoroutine(PreventMove());
-            //StartCoroutine(PreventMove());  //hàm làm cho enemy đứng yên khi thực hiện animation attack
             return;
         }
         animator.SetBool("Attack", false);
@@ -88,12 +84,4 @@ public class EnemyBossController : EnemyController
         if(isDeath)
             GameManager.instance.EndGame();
     }
-    IEnumerator PreventMove()
-    {
-        agent.destination = transform.position;
-        yield return new WaitForSeconds(3f);
-        isAttack = false;
-        agent.isStopped = false;
-    }
-
 }

@@ -92,13 +92,6 @@ public class PlayerInput : MonoBehaviour
             m_AttackController.NormalAttack();
         }
     }
-    //private void CheckSpecialAtk()
-    //{
-    //    if (IsAttack)
-    //    {
-    //        m_AttackController.SpecialAttack();
-    //    }
-    //}
     private void CheckTower()
     {
         if (IsAttack)

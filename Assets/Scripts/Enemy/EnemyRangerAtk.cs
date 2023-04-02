@@ -28,7 +28,6 @@ public class EnemyRangerAtk : MonoBehaviour
     }
     public void SetDmgToBullet()
     {
-        //Debug.Log(dmgPoint);
         // goi bullet ra
         Vector3 pos = new Vector3(transform.position.x, transform.position.y + 1, transform.position.z);
         GameObject goj = Instantiate(EnemyBullet, pos,transform.rotation);
@@ -36,6 +35,5 @@ public class EnemyRangerAtk : MonoBehaviour
         goj.GetComponent<DamageSender>().SendDamage(dmgPoint);
         //set bullet active
         goj.SetActive(true);
-        // done
     }
 }

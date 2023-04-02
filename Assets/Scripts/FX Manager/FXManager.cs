@@ -7,10 +7,10 @@ public class FXManager : MonoBehaviour
     private static FXManager _instance;
     public static FXManager Instance { get { return _instance; } }
 
-    public ParticleSystem explosionFX;
-    public ParticleSystem largeExplosionFX;
-    public ParticleSystem hitFX;
-    public ParticleSystem bulletExplosive;
+    [SerializeField] private ParticleSystem explosionFX;
+    [SerializeField] private ParticleSystem largeExplosionFX;
+    [SerializeField] private ParticleSystem hitFX;
+    [SerializeField] private ParticleSystem bulletExplosive;
     [SerializeField] private ParticleSystem dashFX;
 
     [SerializeField] private ParticleSystem enemyPopup;
