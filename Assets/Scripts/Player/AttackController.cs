@@ -7,7 +7,7 @@ public class AttackController : MonoBehaviour
     [SerializeField] private Transform firePoint;
 
     private float norAtkDelay = 0.2f;   //set delay time between each shoot
-    private float specialAtkDelay = 4f;   //set delay time between each shoot
+    private float towerDelay = 5f;   //set delay time between each shoot
     private float dashDelay = 2;
 
     [SerializeField] private float attackRadius;
@@ -16,14 +16,14 @@ public class AttackController : MonoBehaviour
     private void Update()
     {
         norAtkDelay -= Time.deltaTime;
-        specialAtkDelay -= Time.deltaTime;  
+        towerDelay -= Time.deltaTime;  
         dashDelay -= Time.deltaTime;
 
         if (norAtkDelay <= 0)
             norAtkDelay = 0;
 
-        if(specialAtkDelay <= 0)
-            specialAtkDelay = 0;
+        if(towerDelay <= 0)
+            towerDelay = 0;
 
         if(dashDelay <= 0)
             dashDelay = 0;
@@ -39,9 +39,10 @@ public class AttackController : MonoBehaviour
             {
                 transform.LookAt(target.position);
             }
-            BulletSpawner.Instance.FireBullet(firePoint);
-            PlayerControllerISO.Instance.AttackAction();
-            norAtkDelay = 0.5f; //set time delay for each attack behavious
+            BulletSpawner.Instance.FireBullet(firePoint);   //spawn bullet
+            PlayerControllerISO.Instance.AttackAction();    // animation
+            SoundManager.Instance.ImpactBulletSound();      //play gun impact sound
+            norAtkDelay = 0.2f; //set time delay for each attack behavious
         }
     }
     private void FindTarget()
@@ -64,14 +65,21 @@ public class AttackController : MonoBehaviour
         //// pretent spam
         //if (specialAtkDelay <= 0)
         //{
-        //    BulletSpawner.Instance.FireSpecBullet(firePoint);
-        //    PlayerControllerISO.Instance.AttackAction();
-        //    specialAtkDelay = 4;
+
         //}
     }
     public void PlaceTower()
     {
-        TowerSpawner.Instance.SpawnTower(firePoint);
+        // pretent spam
+        //// pretent spam
+        if (towerDelay <= 0)
+        {
+            TowerSpawner.Instance.SpawnTower(firePoint);
+            SoundManager.Instance.PlaceTowerSound();
+            towerDelay = 5;
+        }
+
+
     }
     public void DashAction()
     {
@@ -80,6 +88,8 @@ public class AttackController : MonoBehaviour
         {
             //modify speed up in small time
             //then back to old speed
+            SoundManager.Instance.DashSound();
+            FXManager.Instance.Dash(transform);
             StartCoroutine(SpeedUp());
             dashDelay = 2;
         }

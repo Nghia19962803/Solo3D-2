@@ -23,6 +23,7 @@ public class EnemyController : MonoBehaviour
     protected bool isWalk;
     protected bool isAttack;
     protected bool isDeath;
+    protected bool isDeathCheck;
 
     private float timeAtk = 0;
     public float timeDelay;
@@ -91,10 +92,12 @@ public class EnemyController : MonoBehaviour
     public virtual void Death()
     {
         // check hp loop, make sure enemy is alive or death
-        if(_EnemyRangeStats.GetCurrentHealh() <= 0)
+        if(_EnemyRangeStats.GetCurrentHealh() <= 0 && !isDeathCheck)
         {
+            SoundManager.Instance.MeleeDeahSound();
             animator.SetBool("Die", true);
             isDeath = true;
+            isDeathCheck = true;
             agent.isStopped = true;
             StartCoroutine(StartToDeath()); //after 2s when enemy die. perform die animation
         }

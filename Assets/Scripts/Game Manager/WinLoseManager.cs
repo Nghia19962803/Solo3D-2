@@ -25,6 +25,7 @@ public class WinLoseManager : MonoBehaviour
     public void ApearEndGamePanel(string status)
     {
         StartCoroutine(DisplayEndGamePanel(status));
+        SoundManager.Instance.EndGameStopSound();
     }
     IEnumerator DisplayEndGamePanel(string status)
     {

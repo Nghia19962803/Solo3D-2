@@ -15,6 +15,9 @@ public class PlayerInput : MonoBehaviour
     private Button specAttack;
     private Button Dash;
 
+    private float dashDelay = 2;
+    private float towerDelay = 5;
+
     private Vector3 m_Movement;
     
     public Vector3 MoveInput
@@ -68,6 +71,19 @@ public class PlayerInput : MonoBehaviour
     void Update()
     {
         m_Movement.Set(joystick.Horizontal, 0, joystick.Vertical);
+
+        dashDelay = dashDelay - Time.deltaTime;
+        towerDelay = towerDelay - Time.deltaTime;
+
+        if (dashDelay <= 0)
+            dashDelay = 0;
+
+        Dash.transform.GetChild(0).GetComponent<Text>().text = dashDelay.ToString();
+
+        if (towerDelay <= 0)
+            towerDelay = 0;
+
+        specAttack.transform.GetChild(0).GetComponent<Text>().text = towerDelay.ToString();
     }
     private void CheckNormalAtk()
     {
@@ -88,10 +104,13 @@ public class PlayerInput : MonoBehaviour
         if (IsAttack)
         {
             m_AttackController.PlaceTower();
+            towerDelay = 5;
         }
+
     }
     private void DashSkill()
     {
         m_AttackController.DashAction();
+        dashDelay = 2;
     }
 }

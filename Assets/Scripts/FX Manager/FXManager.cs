@@ -11,6 +11,9 @@ public class FXManager : MonoBehaviour
     public ParticleSystem largeExplosionFX;
     public ParticleSystem hitFX;
     public ParticleSystem bulletExplosive;
+    [SerializeField] private ParticleSystem dashFX;
+
+    [SerializeField] private ParticleSystem enemyPopup;
     private void Awake()
     {
         _instance = this;
@@ -35,5 +38,15 @@ public class FXManager : MonoBehaviour
     {
         Vector3 pos = new Vector3(trans.position.x, 0.01f, trans.position.z);
         Instantiate(largeExplosionFX, pos, Quaternion.identity);
+    }
+    public void Dash(Transform trans)
+    {
+        Vector3 pos = new Vector3(trans.position.x, 0.01f, trans.position.z);
+        Instantiate(dashFX, pos, trans.rotation);
+    }
+    public void EnemyPopup(Vector3 spawnPos)
+    {
+        Vector3 pos = new Vector3(spawnPos.x, 0.01f, spawnPos.z);
+        Instantiate(enemyPopup, pos, Quaternion.identity);
     }
 }

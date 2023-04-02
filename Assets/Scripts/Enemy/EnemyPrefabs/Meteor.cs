@@ -43,6 +43,7 @@ public class Meteor : MonoBehaviour
         if (other.gameObject.CompareTag("Ground"))
         {
             FXManager.Instance.Explose(transform);
+            SoundManager.Instance.SmallExploseSound();
             Destroy(gameObject);
         }
     }

@@ -131,6 +131,7 @@ public class GameManager : MonoBehaviour
             {
                 EnemySpawner.Instance.SpawnEnemy(0);
             }
+            yield return new WaitForSeconds(0.5f);
             for (int i = 0; i < (gameRound * 3); i++)
             {
                 EnemySpawner.Instance.SpawnEnemy(1);

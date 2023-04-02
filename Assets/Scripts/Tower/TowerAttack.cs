@@ -34,6 +34,8 @@ public class TowerAttack : MonoBehaviour
         {
             transform.LookAt(target.position);
             BulletSpawner.Instance.FireBullet(firePoint);
+            SoundManager.Instance.ImpactBulletSound();      //play gun impact sound
+
             countTime = delayTime;
             Debug.Log(target.name);
         }

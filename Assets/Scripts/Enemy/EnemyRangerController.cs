@@ -21,6 +21,7 @@ public class EnemyRangerController : MonoBehaviour
 
     [SerializeField] protected float distanceToStop;
     protected bool isDeath;
+    protected bool isDeathCheck;
 
     private float timeAtk = 0;
     public float timeDelay;
@@ -84,7 +85,6 @@ public class EnemyRangerController : MonoBehaviour
         if (Vector3.Distance(transform.position, movePoint.position) <= distanceToStop && !isDeath)
         {
             animator.SetTrigger("ATK");
-
             return;
         }
 
@@ -92,8 +92,10 @@ public class EnemyRangerController : MonoBehaviour
     public virtual void Death()
     {
         // check hp loop, make sure enemy is alive or death
-        if (_EnemyRangeStats.GetCurrentHealh() <= 0)
+        if (_EnemyRangeStats.GetCurrentHealh() <= 0 && !isDeathCheck)
         {
+            SoundManager.Instance.RangerDeathSound();
+            isDeathCheck = true;
             animator.SetBool("Die", true);
             isDeath = true;
             agent.isStopped = true;

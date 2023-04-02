@@ -43,12 +43,13 @@ public class EnemyBossAttack : MonoBehaviour
         BossSkill.Instance.LoadBullets();
         BossSkill.Instance.SetDmgForObject(EnemyBossController.Instance._EnemyRangeStats.GetDmg());      
         BossSkill.Instance.GreaterMultibleProjectiles(this.transform);
+        SoundManager.Instance.MeleePunchSound();
     }
     public void CallMeteor()
     {
         //BossSkill.Instance.SetDmgForObject(EnemyBossController.Instance._EnemyRangeStats.GetDmg());
         //BossSkill.Instance.Meteor(EnemyBossController.Instance.GetPlayerPosition());    // nhận ra vị trí player
-
+        SoundManager.Instance.CastMeteorSound();
         MeteorSpawner.Instance.CallMeteor(PlayerControllerISO.Instance.GetPlayerPosition());
     }
     //public void CallEdoTensei()
@@ -64,6 +65,8 @@ public class EnemyBossAttack : MonoBehaviour
     {
         float countTime = 0.5f;
         Vector3 playerPos = PlayerControllerISO.Instance.GetPlayerPosition();
+        SoundManager.Instance.DashSound();
+        FXManager.Instance.Dash(transform);
         while (Vector3.Distance(playerPos, transform.position) > 2 || countTime > 0)
         {
             transform.position = Vector3.Lerp(transform.position, playerPos, 3 * Time.deltaTime);
@@ -71,6 +74,7 @@ public class EnemyBossAttack : MonoBehaviour
             yield return null;
         }
         FXManager.Instance.LargeExplose(transform);
+        SoundManager.Instance.LargeExploseSound();
         yield return null;
     }
     #endregion

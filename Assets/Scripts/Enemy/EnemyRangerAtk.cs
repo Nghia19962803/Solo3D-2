@@ -15,6 +15,7 @@ public class EnemyRangerAtk : MonoBehaviour
     public void ActiveWhenATK_Animation()
     {
         ReceiveDmgPoint();
+        SoundManager.Instance.ImpactBulletSound();      //play gun impact sound
     }
     private void FixedUpdate()
     {

@@ -26,7 +26,9 @@ public class EnemySpawner : MonoBehaviour
     }
     public void SpawnEnemy(int index)
     {
-        Instantiate(enemyPrefabs[index], SpawnRandomPosition(), Quaternion.identity);
+        Vector3 spawnPosition = SpawnRandomPosition();
+        Instantiate(enemyPrefabs[index], spawnPosition, Quaternion.identity);
+        FXManager.Instance.EnemyPopup(spawnPosition);
     }
     public void SpawnBoss()
     {

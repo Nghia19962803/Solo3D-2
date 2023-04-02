@@ -13,6 +13,7 @@ public class EnemyMeleeAttack : MonoBehaviour
     public void ActiveWhenPunchAnimation()
     {
         ReceiveDmgPoint();
+        SoundManager.Instance.MeleePunchSound();
     }
     public void ReceiveDmgPoint()
     {
