@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MoreMountains.Feel;
 
 public class DamageSender : MonoBehaviour
 {
@@ -18,8 +19,10 @@ public class DamageSender : MonoBehaviour
     {
         if (other.gameObject.tag == gameObject.tag) return; // prevent make dmg for object holding this class and allie who have same tag
      
-        if (!other.GetComponent<DamageReceiver>()) return;  // just make damage when collider with object which have DamageReceiver class
+        //if (!other.GetComponent<DamageReceiver>()) return;  // just make damage when collider with object which have DamageReceiver class
 
-        other.GetComponent<DamageReceiver>().ReceiveDamage(damage);
+        //other.GetComponent<DamageReceiver>().ReceiveDamage(damage);
+        other.GetComponent<BarbarianEnemy>().TakeDamage(damage);
+        Debug.Log("1111111111");
     }
 }

@@ -13,8 +13,11 @@ public class InventoryUI : MonoBehaviour
 
     private void Awake()
     {
-        inventoryTransform = GameObject.Find("InventoryHolder").GetComponent<Transform>();
-
+        if (GameObject.Find("InventoryHolder"))
+        {
+            inventoryTransform = GameObject.Find("InventoryHolder").GetComponent<Transform>();
+        }
+        
         int maxSlot = 10;
         for (int i = 0; i < maxSlot; i++)
         {
@@ -78,7 +81,7 @@ public class InventoryUI : MonoBehaviour
     public void HideInventory()
     {
         if (PlayerControllerISO.Instance == null) return;
-
+        if(inventoryTransform == null) return;
         PlayerControllerISO.Instance._PlayerInput.isPlayerControllerInputBlocked = false;
         inventoryTransform.gameObject.SetActive(false);
         //doll.SetActive(false);
