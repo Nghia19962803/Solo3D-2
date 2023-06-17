@@ -48,6 +48,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -328,6 +329,15 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      32x32 Guns icon Sheet_7: -3647273633217300181
+      32x32 Guns icon Sheet_4: 8406544458907157485
+      32x32 Guns icon Sheet_5: 8409964009745837391
+      32x32 Guns icon Sheet_6: -4879380914554129315
+      32x32 Guns icon Sheet_0: -7126910706921880692
+      32x32 Guns icon Sheet_1: -3922015279000991356
+      32x32 Guns icon Sheet_2: -1547678705261424812
+      32x32 Guns icon Sheet_3: 9221492844446368389
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
