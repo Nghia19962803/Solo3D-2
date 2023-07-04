@@ -12,11 +12,33 @@ public class EnemySpawner : MonoBehaviour
 
     private int maxX, maxZ;
     public bool spawnGolem;
+
+    [Header("DEBUG ONLY")]
+    public Transform[] pos;
+    public float delaytime = 1;
+    private float count;
+    public bool testSpawn { get; set; }
+
     private void Awake()
     {
         instance = this;
         maxX = 15;
         maxZ = 15;
+    }
+    private void Update()
+    {
+        if (testSpawn)
+        {
+            if(count <= 0)
+            {
+                TestSpawnEnemy();
+                count = delaytime;
+            }
+            else
+            {
+                count -= Time.deltaTime;
+            }
+        }
     }
     public Vector3 SpawnRandomPosition()
     {
@@ -34,5 +56,14 @@ public class EnemySpawner : MonoBehaviour
     {
         GameObject goj = Instantiate(bossPrefabs, bossPrefabs.transform.position, Quaternion.identity);
         FXManager.Instance.EnemyPopup(goj.transform.position);
+    }
+
+    public void TestSpawnEnemy()
+    {
+        for (int i = 0; i < pos.Length; i++)
+        {
+            Instantiate(enemyPrefabs[2], pos[i].position, Quaternion.identity);
+        }
+        
     }
 }

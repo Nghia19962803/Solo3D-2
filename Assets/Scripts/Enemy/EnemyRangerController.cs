@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+
 
 public class EnemyRangerController : MonoBehaviour
 {
@@ -27,6 +29,7 @@ public class EnemyRangerController : MonoBehaviour
     public float timeDelay;
 
     public GameObject bottle;
+
     private void Awake()
     {
         s_Instance = this;
@@ -100,11 +103,15 @@ public class EnemyRangerController : MonoBehaviour
             isDeath = true;
             agent.isStopped = true;
             StartCoroutine(StartToDeath()); //after 2s when enemy die. perform die animation
+
+
+            //========================================================================================//
+            PlayerControllerISO.Instance.attack.SetTargetDeath();
         }
     }
     IEnumerator StartToDeath()
     {
-        int numb = Random.Range(0, 4);
+        int numb = UnityEngine.Random.Range(0, 4);
 
 
         collider.enabled = false;

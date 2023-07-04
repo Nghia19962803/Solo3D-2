@@ -38,7 +38,7 @@ public class ItemDetail : MonoBehaviour
     {
         itemReserve = item;
     }
-    public ItemObject GetItem()
+    public ItemObject GetDetailItemObject()
     {
         return itemReserve;
     }
@@ -56,7 +56,7 @@ public class ItemDetail : MonoBehaviour
         Name_Text.text = "";
         attibute_text.text = "";
         type_text.text = "";
-        itemReserve = ItemManager.Instance.GetItem(0);
+        itemReserve = ItemManager.Instance.GetDefaultItem();
     }
     public void DisplayDetailPanel()
     {

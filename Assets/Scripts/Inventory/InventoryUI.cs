@@ -32,6 +32,7 @@ public class InventoryUI : MonoBehaviour
     private void Start()
     {
         HideInventory();
+        
     }
 
     public void DisPlayItem(List<InventorySlot> invenSlot)
@@ -68,13 +69,10 @@ public class InventoryUI : MonoBehaviour
     //attach methor to inventory show button
     public void DisplayInventory()
     {
-        //doll.SetActive(true);
-        //displayPanel.SetActive(true);
         if(PlayerControllerISO.Instance == null) return;
 
         PlayerControllerISO.Instance._PlayerInput.isPlayerControllerInputBlocked = true;
         inventoryTransform.gameObject.SetActive(true);
-        inventoryTransform.position = PlayerControllerISO.Instance.GetPlayerPosition();
     }
 
     //attach methor to inventory hide button
@@ -84,9 +82,7 @@ public class InventoryUI : MonoBehaviour
         if(inventoryTransform == null) return;
         PlayerControllerISO.Instance._PlayerInput.isPlayerControllerInputBlocked = false;
         inventoryTransform.gameObject.SetActive(false);
-        //doll.SetActive(false);
-        //displayPanel.SetActive(false);
-        //ItemManager.Instance._ItemDetail.HideDetailPanel();
 
+        ItemManager.Instance.SaveCurrentEquiptmentData();
     }
 }

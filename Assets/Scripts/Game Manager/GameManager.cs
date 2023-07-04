@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
     public int currentPlayerHP;
     public GameObject weapon;
     public GameObject armor;
+
     private void Awake()
     {
         // sau khi reload lại main scene thì sẻ tạo thêm 1 game manager
@@ -29,7 +30,7 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
         instance = this;
         startGame = true;
     }

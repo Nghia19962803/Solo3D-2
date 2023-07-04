@@ -11,7 +11,7 @@ public class PlayerInput : MonoBehaviour
     public Joystick joystick;
     public Canvas InputCanvas;
 
-    private Button norAttack;
+    //private Button norAttack;
     private Button specAttack;
     private Button Dash;
 
@@ -43,17 +43,17 @@ public class PlayerInput : MonoBehaviour
     private void Awake()
     {
         m_AttackController = GetComponent<AttackController>();
-        norAttack = InputCanvas.transform.GetChild(1).GetComponent<Button>();
+        //norAttack = InputCanvas.transform.GetChild(1).GetComponent<Button>();
         specAttack = InputCanvas.transform.GetChild(2).GetComponent<Button>();
         Dash = InputCanvas.transform.GetChild(4).GetComponent<Button>();
     }
     private void Start()
     {
         // set nut tấn công thường
-        norAttack.onClick.AddListener(() =>
-        {
-            CheckNormalAtk();
-        });
+        //norAttack.onClick.AddListener(() =>
+        //{
+        //    CheckNormalAtk();
+        //});
         // set nút tất công đặc biệt
         specAttack.onClick.AddListener(() =>
         {
@@ -85,13 +85,7 @@ public class PlayerInput : MonoBehaviour
 
         specAttack.transform.GetChild(0).GetComponent<Text>().text = towerDelay.ToString();
     }
-    private void CheckNormalAtk()
-    {
-        if (IsAttack)
-        {
-            m_AttackController.NormalAttack();
-        }
-    }
+
     private void CheckTower()
     {
         if (IsAttack)

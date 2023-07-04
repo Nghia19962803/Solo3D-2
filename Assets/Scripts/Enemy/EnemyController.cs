@@ -100,6 +100,8 @@ public class EnemyController : MonoBehaviour
             isDeathCheck = true;
             agent.isStopped = true;
             StartCoroutine(StartToDeath()); //after 2s when enemy die. perform die animation
+
+            PlayerControllerISO.Instance.attack.SetTargetDeath();
         }
     }
     IEnumerator PreventMove()

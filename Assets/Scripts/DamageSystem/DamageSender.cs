@@ -10,6 +10,10 @@ public class DamageSender : MonoBehaviour
     private int damage = 0;
 
     // this method set damage to your bullet or punch
+    private void Start()
+    {
+        damage = PlayerControllerISO.Instance._stats.GetDmg();
+    }
     public int SendDamage(int dmg)
     {
         damage = dmg;
@@ -18,11 +22,18 @@ public class DamageSender : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == gameObject.tag) return; // prevent make dmg for object holding this class and allie who have same tag
-     
+
         //if (!other.GetComponent<DamageReceiver>()) return;  // just make damage when collider with object which have DamageReceiver class
 
-        //other.GetComponent<DamageReceiver>().ReceiveDamage(damage);
-        other.GetComponent<BarbarianEnemy>().TakeDamage(damage);
-        Debug.Log("1111111111");
+        //
+        if (other.GetComponent<BarbarianEnemy>())
+        {
+            other.GetComponent<BarbarianEnemy>().TakeDamage(damage);
+            other.GetComponent<DamageReceiver>().ReceiveDamage(damage);
+        }
+        else if (other.GetComponent<DamageReceiver>())
+        {
+            other.GetComponent<DamageReceiver>().ReceiveDamage(damage);
+        }
     }
 }

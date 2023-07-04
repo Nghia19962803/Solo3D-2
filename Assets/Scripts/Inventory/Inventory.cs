@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
 
 public class Inventory : MonoBehaviour
 {
@@ -8,12 +9,13 @@ public class Inventory : MonoBehaviour
     private static Inventory s_Instance;
 
     private InventoryUI invenUI;
-    public InventoryUI _InvenUI { get { return invenUI; } }
 
     public List<InventorySlot> slots = new List<InventorySlot>();
     private int maxSlot;
 
     public bool check;
+    public bool saveInven;
+    public bool loadInven;
     private void Start()
     {
         s_Instance = this;
@@ -21,12 +23,13 @@ public class Inventory : MonoBehaviour
         maxSlot = 10;
         for (int i = 0; i < maxSlot; i++)
         {
-            InventorySlot _invenSlot = new InventorySlot(i,ItemManager.Instance.GetItem(0), 0);
+            InventorySlot _invenSlot = new InventorySlot(i,ItemManager.Instance.GetDefaultItem(), 0);
             slots.Add(_invenSlot);
         }
-        AddItem(ItemManager.Instance.GetItem("Armor_1"));
-        AddItem(ItemManager.Instance.GetItem("Weapon_1"));
+        //AddItem(ItemManager.Instance.GetItem("Armor_1"));
+        //AddItem(ItemManager.Instance.GetItem("Weapon_1"));
         invenUI.DisPlayItem(slots);
+        //StartCoroutine(LoadInven());
     }
     private void Update()
     {
@@ -34,6 +37,17 @@ public class Inventory : MonoBehaviour
         {
             RefreshInventory();
             check = false;
+        }
+        if (saveInven)
+        {
+            SaveInventoryData();
+            saveInven = false;
+        }
+        if (loadInven)
+        {
+            LoadInventoryData();
+            invenUI.DisPlayItem(slots);
+            loadInven = false;
         }
     }
     public void AddItem(ItemObject _item)
@@ -58,8 +72,8 @@ public class Inventory : MonoBehaviour
             slots[slotIndex] = new InventorySlot(slotIndex, _item, 1);
         }
         invenUI.DisPlayItem(slots);
-        return;
     }
+
     public int FindEmptySlot()
     {
         foreach (var slot in slots)
@@ -81,9 +95,43 @@ public class Inventory : MonoBehaviour
         slots[index].Iobject = _invenSlot.Iobject;
     }
 
+    #region ========================== SAVE AND LOAD =============================
+    public void SaveInventoryData()     //========= SAVE INVENTORY =========//
+    {
+        if(slots.Count > 0)
+        {
+            DataInventory data = new DataInventory();
+            data.listItem = slots;
+            string json = JsonUtility.ToJson(data);
+            File.WriteAllText(Application.persistentDataPath + "/InventoryData.json", json);
+        }
+
+    }
+    public List<InventorySlot> LoadInventoryData()                  //========= LOAD INVENTORY =========//
+    {
+        if(File.Exists(Application.persistentDataPath + "/InventoryData.json"))
+        {
+            DataInventory data = new DataInventory();
+            string json = File.ReadAllText(Application.persistentDataPath + "/InventoryData.json");
+            data = JsonUtility.FromJson<DataInventory>(json);
+
+            slots = data.listItem;
+
+        }
+        return slots;
+    }
+    #endregion
+
+    IEnumerator LoadInven()
+    {
+        yield return new WaitForSeconds(1);
+        LoadInventoryData();
+        invenUI.DisPlayItem(slots);
+    }
 }
 
 // this class help manager inventory slot
+[System.Serializable]
 public class InventorySlot
 {
     public int ID;
@@ -95,4 +143,10 @@ public class InventorySlot
         Iobject = _iobject;
         amount = _amount;
     }
+}
+
+[System.Serializable]
+public class DataInventory
+{
+    public List<InventorySlot> listItem;
 }

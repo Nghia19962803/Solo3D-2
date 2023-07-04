@@ -24,6 +24,7 @@ public class GroundItem : MonoBehaviour
             {
                 PlayerControllerISO.Instance._stats.Regen(this._itemObject);
             }
+            Inventory.instance.SaveInventoryData();
             Destroy(gameObject);
         }
     }

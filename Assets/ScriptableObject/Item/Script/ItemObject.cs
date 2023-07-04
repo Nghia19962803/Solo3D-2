@@ -19,6 +19,7 @@ public abstract class ItemObject : ScriptableObject
     public ItemType type;
     public string Name;
     public bool stackable;
+    public GameObject prefab;
     public ItemBuff buff;
 }
 
