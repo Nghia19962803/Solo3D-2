@@ -55,6 +55,8 @@ public class BulletSpawner : MonoBehaviour
         bullet.GetComponent<DamageSender>().SendDamage(PlayerControllerISO.Instance._stats.GetDmg()); //set damage to bullet = player stats class
         bullet.transform.position = pos.position;
         bullet.transform.rotation = pos.rotation;
+
+        Debug.Log("11111111111");
     }
 
     // this method will be called when player tap spacial fire button, and receive player position as parameter

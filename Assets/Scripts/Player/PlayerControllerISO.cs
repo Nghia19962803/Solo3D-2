@@ -16,10 +16,12 @@ public class PlayerControllerISO : MonoBehaviour
 
     [SerializeField] private float _speed = 5;
     [SerializeField] private float _turnSpeed = 5;
+    public AttackController playerAttackCtrl;
 
     private CharacterController characterController;
     private Animator animator;
     private Vector3 _input;
+
 
     // Animator Parameter Hashes
     private readonly int m_HashForwardSpeed = Animator.StringToHash("ForwardSpeed");
@@ -32,6 +34,10 @@ public class PlayerControllerISO : MonoBehaviour
         playerInput = GetComponent<PlayerInput>();
         animator = GetComponent<Animator>();
         s_Instance = this;
+        SceneLinkedSMB<PlayerControllerISO>.Initialise(animator, this);
+    }
+    private void Start() {
+        playerInput.OnShootAction += AttackAction;
     }
     private void Update()
     {

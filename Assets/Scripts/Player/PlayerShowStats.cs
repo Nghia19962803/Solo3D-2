@@ -9,10 +9,10 @@ public class PlayerShowStats : MonoBehaviour
     public Text armorText;
     public Text healthText;
 
-    private void FixedUpdate()
-    {
-        dmgText.text = PlayerControllerISO.Instance._stats.GetDmg().ToString();
-        armorText.text = PlayerControllerISO.Instance._stats.GetArmor().ToString();
-        healthText.text = PlayerControllerISO.Instance._stats.GetCurrentHealh().ToString();
-    }
+    // private void FixedUpdate()
+    // {
+    //     dmgText.text = PlayerControllerISO.Instance._stats.GetDmg().ToString();
+    //     armorText.text = PlayerControllerISO.Instance._stats.GetArmor().ToString();
+    //     healthText.text = PlayerControllerISO.Instance._stats.GetCurrentHealh().ToString();
+    // }
 }
