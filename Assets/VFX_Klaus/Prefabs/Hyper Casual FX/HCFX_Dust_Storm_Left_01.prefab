@@ -7,11 +7,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1163000216739424036, guid: 8360a57df3e96ae4891574c3af8e0e4d,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1163000216739424041, guid: 8360a57df3e96ae4891574c3af8e0e4d,
         type: 3}
       propertyPath: VelocityModule.orbitalY.scalar
@@ -31,16 +26,11 @@ PrefabInstance:
         type: 3}
       propertyPath: VelocityModule.orbitalY.minScalar
       value: -10
-      objectReference: {fileID: 0}
-    - target: {fileID: 3100204534734593426, guid: 8360a57df3e96ae4891574c3af8e0e4d,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3100204534734593427, guid: 8360a57df3e96ae4891574c3af8e0e4d,
         type: 3}
       propertyPath: m_Name
-      value: HCFX_Dust_Storm_Left_01
+      value: HCFX_Dust_Storm_Left_01 (1)
       objectReference: {fileID: 0}
     - target: {fileID: 3100204534734593436, guid: 8360a57df3e96ae4891574c3af8e0e4d,
         type: 3}
@@ -96,36 +86,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3100204534734593437, guid: 8360a57df3e96ae4891574c3af8e0e4d,
-        type: 3}
-      propertyPath: looping
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3100204534734593437, guid: 8360a57df3e96ae4891574c3af8e0e4d,
-        type: 3}
-      propertyPath: lengthInSec
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5184322965084234228, guid: 8360a57df3e96ae4891574c3af8e0e4d,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5624458183690212741, guid: 8360a57df3e96ae4891574c3af8e0e4d,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5624458183690212744, guid: 8360a57df3e96ae4891574c3af8e0e4d,
-        type: 3}
-      propertyPath: looping
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5624458183690212744, guid: 8360a57df3e96ae4891574c3af8e0e4d,
-        type: 3}
-      propertyPath: lengthInSec
-      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 5624458183690212744, guid: 8360a57df3e96ae4891574c3af8e0e4d,
         type: 3}

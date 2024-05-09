@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
 
 public class PlayerControllerISO : MonoBehaviour
 {
@@ -15,13 +14,9 @@ public class PlayerControllerISO : MonoBehaviour
     private PlayerStats stats;
     public PlayerStats _stats { get { return stats; } }
 
-
-    private AttackController _attack;
-    public AttackController attack { get { return _attack; } }
-
     [SerializeField] private float _speed = 5;
     [SerializeField] private float _turnSpeed = 5;
-    [SerializeField] private Transform weaponHolder;
+
     private CharacterController characterController;
     private Animator animator;
     private Vector3 _input;
@@ -30,22 +25,11 @@ public class PlayerControllerISO : MonoBehaviour
     private readonly int m_HashForwardSpeed = Animator.StringToHash("ForwardSpeed");
     private readonly int m_Attack = Animator.StringToHash("Shoot");
     private readonly int m_HashDeath = Animator.StringToHash("Death");
-    private readonly int m_HashRolling = Animator.StringToHash("Rolling");
-
-
-
-
-
-
-    public bool check;
-    public ItemObject bow1;
-
     private void Awake()
     {
         stats = GetComponent<PlayerStats>();
         characterController = GetComponent<CharacterController>();
         playerInput = GetComponent<PlayerInput>();
-        _attack = GetComponent<AttackController>();
         animator = GetComponent<Animator>();
         s_Instance = this;
     }
@@ -53,19 +37,6 @@ public class PlayerControllerISO : MonoBehaviour
     {
         GatherInput();
         Look();
-
-
-
-
-
-
-
-        if (check)
-        {
-            check = false;
-            //ChangeEquiptWeapon(bow1.prefab);
-        }
-
     }
 
     private void FixedUpdate()
@@ -92,25 +63,9 @@ public class PlayerControllerISO : MonoBehaviour
         characterController.Move(transform.forward * _input.sqrMagnitude * Time.deltaTime * _speed);
         animator.SetFloat(m_HashForwardSpeed, _input.sqrMagnitude);
     }
-    public void Rolling()
-    {
-        StartCoroutine(RollingCoroutine());
-    }
-    IEnumerator RollingCoroutine()
-    {
-        characterController.Move(transform.forward * _input.sqrMagnitude * Time.deltaTime * _speed);
-        animator.SetTrigger(m_HashRolling);
-        characterController.detectCollisions = false;
-        yield return new WaitForSeconds(5);
-        characterController.detectCollisions = true;
-    }
     public void AttackAction()
     {
-        animator.SetBool(m_Attack,true);
-    }
-    public void StopAttackAction()
-    {
-        animator.SetBool(m_Attack,false);
+        animator.SetTrigger(m_Attack);
     }
     public void PlayerDeath()
     {
@@ -125,14 +80,6 @@ public class PlayerControllerISO : MonoBehaviour
     public Vector3 GetPlayerPosition()
     {
         return transform.position;  
-    }
-    public Transform GetWeaponHolder()
-    {
-        if(weaponHolder.childCount > 0)
-        {
-            Destroy(weaponHolder.GetChild(0).gameObject);
-        }
-        return weaponHolder;
     }
 }
 

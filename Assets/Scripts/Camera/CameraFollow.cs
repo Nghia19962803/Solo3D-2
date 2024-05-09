@@ -5,7 +5,7 @@ using UnityEngine;
 public class CameraFollow : MonoBehaviour
 {
     [SerializeField] private GameObject player;
-    private Vector3 offset = new Vector3(-14, 17, -24);
+    private Vector3 offset = new Vector3(-12.5f, 18, -24);
     private void Awake()
     {
         player = GameObject.Find("Player");
