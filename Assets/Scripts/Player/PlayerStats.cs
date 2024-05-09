@@ -75,5 +75,6 @@ public class PlayerStats : Stats
     public void SetHP(int hp)
     {
         currentHealth = hp;
+        Debug.Log("HP = " + currentHealth);
     }
 }

@@ -25,8 +25,8 @@ public class FXManager : MonoBehaviour
     }
     public void HitImpact(Transform trans)
     {
-        Vector3 pos = new Vector3(trans.position.x, 1f, trans.position.z);
-        Instantiate(hitFX, pos, Quaternion.identity);
+        // Vector3 pos = new Vector3(trans.position.x, 1f, trans.position.z);
+        // Instantiate(hitFX, pos, Quaternion.identity);
     }
     public void BulletExp(Transform trans)
     {

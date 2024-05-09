@@ -17,12 +17,13 @@ public class DamageSender : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log("name : " + other.gameObject.name);
         if (other.gameObject.tag == gameObject.tag) return; // prevent make dmg for object holding this class and allie who have same tag
      
-        //if (!other.GetComponent<DamageReceiver>()) return;  // just make damage when collider with object which have DamageReceiver class
+        if (!other.GetComponent<DamageReceiver>()) return;  // just make damage when collider with object which have DamageReceiver class
 
-        //other.GetComponent<DamageReceiver>().ReceiveDamage(damage);
-        other.GetComponent<BarbarianEnemy>().TakeDamage(damage);
-        Debug.Log("1111111111");
+        other.GetComponent<DamageReceiver>().ReceiveDamage(damage);
+        //other.GetComponent<BarbarianEnemy>().TakeDamage(damage);
+        //Debug.Log("1111111111");
     }
 }
