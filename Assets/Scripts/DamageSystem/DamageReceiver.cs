@@ -1,15 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MoreMountains.Feedbacks;
 
 public class DamageReceiver : MonoBehaviour
 {
-
+    public MMFeedbacks DamageFeedback;
     private int dmgReceive;
     public void ReceiveDamage(int dmg)  // method is called by only damage sender class
     {
         dmgReceive = dmg;
-        Debug.Log(gameObject.name + "aaaaaaaa" + dmg);
         FXManager.Instance.HitImpact(transform); // appear hit impact when take damage
     }
 
@@ -23,5 +23,13 @@ public class DamageReceiver : MonoBehaviour
     public void SetDmgReceive()
     {
         dmgReceive = 0;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            DamageFeedback?.PlayFeedbacks(this.transform.position, 123);
+        }
     }
 }

@@ -111,4 +111,10 @@ public class AttackController : MonoBehaviour
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(this.transform.position, attackRadius);
     }
+
+    public void SetAttackSpeed(float multi)
+    {
+        percentAtkSpeed = multi;
+        PlayerControllerISO.Instance.AtkSpeedModify(percentAtkSpeed);
+    }
 }
