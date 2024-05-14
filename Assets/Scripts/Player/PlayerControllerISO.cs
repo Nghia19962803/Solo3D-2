@@ -27,6 +27,7 @@ public class PlayerControllerISO : MonoBehaviour
     private readonly int m_HashForwardSpeed = Animator.StringToHash("ForwardSpeed");
     private readonly int m_Attack = Animator.StringToHash("Shoot");
     private readonly int m_HashDeath = Animator.StringToHash("Death");
+    private readonly int m_AttackSpped = Animator.StringToHash("AtkSpeed");
     private void Awake()
     {
         stats = GetComponent<PlayerStats>();
@@ -86,6 +87,11 @@ public class PlayerControllerISO : MonoBehaviour
     public Vector3 GetPlayerPosition()
     {
         return transform.position;  
+    }
+
+    public void AtkSpeedModify(float f)
+    {
+        animator.SetFloat(m_AttackSpped, f);
     }
 }
 

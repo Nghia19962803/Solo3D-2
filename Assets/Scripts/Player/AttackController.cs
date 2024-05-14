@@ -5,6 +5,7 @@ using UnityEngine;
 public class AttackController : MonoBehaviour
 {
     [SerializeField] private Transform firePoint;
+    [SerializeField] private float percentAtkSpeed;
 
     private float norAtkDelay = 0.2f;   //set delay time between each shoot
     private float towerDelay = 5f;   //set delay time between each shoot
@@ -31,33 +32,43 @@ public class AttackController : MonoBehaviour
     //normal atk
     public void NormalAttack()
     {
-        FindTarget();
-        // pretent spam
-        if (norAtkDelay <= 0)
+        Vector3 shootDir = PlayerControllerISO.Instance._PlayerInput.shootInput;
+        if (shootDir == Vector3.zero) return;
+
+        if (FindTarget())
         {
-            if(target != null)
+            if (norAtkDelay <= 0)
             {
                 transform.LookAt(target.position);
             }
-            BulletSpawner.Instance.FireBullet(firePoint);   //spawn bullet
-            PlayerControllerISO.Instance.AttackAction();    // animation
-            SoundManager.Instance.ImpactBulletSound();      //play gun impact sound
-            norAtkDelay = 0.2f; //set time delay for each attack behavious
         }
+        else
+        {
+            var rot = Quaternion.LookRotation(shootDir.ToIso(), Vector3.up);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, rot, 500);
+        }
+
+        if (norAtkDelay <= 0 && PlayerControllerISO.Instance._PlayerInput.isShoot)
+        {
+            // pretent spam
+            BulletSpawner.Instance.FireBullet(firePoint);   //spawn bullet
+            SoundManager.Instance.ImpactBulletSound();      //play gun impact sound
+            norAtkDelay = 0.3f / percentAtkSpeed; //set time delay for each attack behavious
+        }
+
     }
-    private void FindTarget()
+    private Transform FindTarget()
     {
         if (Physics.CheckSphere(transform.position, attackRadius, checkLayer))
         {
             Collider[] colliders = Physics.OverlapSphere(transform.position, attackRadius, checkLayer);
             if (colliders.Length > 0)
             {
-                target = colliders[0].transform;
-                return;
-            }
-            else
-                target = null;
+                return target = colliders[0].transform;
+            }            
         }
+
+        return target = null;
     }
     //special atk
     public void SpecialAttack()
